@@ -1,24 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SearchBar from "./Components/SearchBar/SearchBar";
+import RecipeList from "./Components/RecipeList/RecipeList";
+import RecipeDetails from "./Components/RecipeDetails/RecipeDetails";
+import "./App.css";
 
 function App() {
+  const [recipes, setRecipes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [noResults, setNoResults] = useState(false); 
+
+  
+  useEffect(() => {
+    if (searchQuery !== "") {
+      fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchQuery}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.meals) {
+            setRecipes(data.meals);
+            setNoResults(false); 
+          } else {
+            setRecipes([]);
+            setNoResults(true); 
+          }
+        })
+        .catch((error) => console.error("Error fetching data: ", error));
+    } else {
+      setRecipes([]);
+      setNoResults(false); 
+    }
+  }, [searchQuery]);
+
+
+  const handleSearch = (query) => {
+    setSearchQuery(query); 
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <h1 className="app-title">Recipe Explorer</h1>
+
+        <SearchBar onSearch={handleSearch} />
+
+        {noResults && searchQuery !== "" && (
+          <p className="no-results-message">No recipes found. Please try a different search.</p>
+        )}
+
+        <Routes>
+          <Route path="/" element={<RecipeList recipes={recipes} />} />
+          <Route path="/recipe/:idMeal" element={<RecipeDetails />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
