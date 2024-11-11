@@ -42,19 +42,39 @@ const RecipeDetails = () => {
     return <p>Recipe not found.</p>;
   }
 
-  
+  // Extract instructions
   const instructions = recipe.strInstructions
     .split("STEP")
     .filter(Boolean)
     .map((step, index) => `STEP ${index + 1}: ${step.trim()}`);
 
+  // Extract ingredients and measures
+  const ingredients = [];
+  for (let i = 1; i <= 20; i++) {
+    const ingredient = recipe[`strIngredient${i}`];
+    const measure = recipe[`strMeasure${i}`];
+    if (ingredient) {
+      ingredients.push(`${measure} ${ingredient}`);
+    }
+  }
+
   return (
     <div className="recipe-details-container">
-      <div className="recipe-image">
-        <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+      <div className="recipe-main-info">
+        <div className="recipe-image">
+          <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+        </div>
+        <div className="recipe-ingredients">
+          <h3>Ingredients</h3>
+          <ul className="ingredients-list">
+            {ingredients.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </div>
+      <h2 className="recipe-name">{recipe.strMeal}</h2> {/* Recipe name below image */}
       <div className="recipe-instructions">
-        <h2>{recipe.strMeal}</h2>
         <h3>Instructions</h3>
         {instructions.map((step, index) => (
           <p key={index} className="recipe-step">
@@ -62,11 +82,8 @@ const RecipeDetails = () => {
           </p>
         ))}
       </div>
-      <h4 className="findmoreheading">Find more:</h4>
-
-      
+      <h4 className="findmoreheading">Other Resources</h4>
       <div className="more-links">
-        <h4></h4>
         <div className="links">
           <a href={`https://www.youtube.com/results?search_query=${recipe.strMeal}`} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-youtube"></i> YouTube

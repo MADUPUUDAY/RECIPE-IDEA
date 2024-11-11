@@ -1,6 +1,5 @@
-
 .recipe-details-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
@@ -8,25 +7,77 @@
   color: #333;
 }
 
+/* Flex container for main info (image and ingredients side by side) */
+.recipe-main-info {
+  display: flex;
+  min-height: 500px;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Recipe image styling */
+.recipe-image {
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 1000px;
+}
+
 .recipe-image img {
-  width: 50%;
+  width: 100%;
   height: auto;
   border-radius: 8px;
-  margin-bottom: 20px;
+  padding-top: 100px;
 }
+
+/* Ingredients styling beside the image */
+.recipe-ingredients {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  color: #0a0909;
+  font-family:"ROboto";
+  font-size: 1rem;
+}
+
+.recipe-ingredients h3 {
+  color: #af6a4c;
+  font-size: 1.5rem;
+}
+
+.ingredients-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ingredients-list li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Recipe name below the image */
+.recipe-name {
+  font-size: 2rem;
+  color: #af6a4c;
+  margin-top: 10px;
+  text-align: start;
+  width: 100%;
+}
+
+/* Instructions styling below image and ingredients */
 .recipe-instructions {
   margin-top: 20px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
+  font-family: "monoco";
   color: #333;
   line-height: 1.6;
-  font-size: 1rem;
-}
-
-.recipe-instructions h2 {
-  color: #af6a4c;
-  font-size: 2rem;
 }
 
 .recipe-instructions h3 {
@@ -35,16 +86,13 @@
   font-size: 1.2rem;
 }
 
-
 .recipe-step {
   margin-bottom: 10px;
-  display: block;
   padding-left: 10px;
-  position: relative;
   font-size: 1rem;
 }
 
-
+/* Find more links styling */
 .more-links {
   margin-top: 30px;
   padding: 10px;
@@ -52,47 +100,14 @@
   border-radius: 8px;
   display: flex;
   justify-content: center;
-
 }
 
-.more-links h4 {
-  font-size: 30px;
-  color: #333;
-  display: flex;
-}
-.findmoreheading{
-  font-size: 30px;
-}
 .links {
   display: flex;
   gap: 20px;
   margin-top: 10px;
 }
-
-.links a {
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: #e60023;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.links a i {
-  font-size: 1.5rem;
-}
-
-.links a:hover {
-  color: #005bb5;
-}
-
-
-.recipe-step::before {
-  content: "•"; 
-  position: absolute;
-  left: 0;
-  color: #af6a4c;
-  font-size: 1.5rem;
-  margin-top: 5px;
+.findmoreheading{
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
